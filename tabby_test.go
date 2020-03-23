@@ -6,7 +6,8 @@ import (
 	"os"
 	"reflect"
 	"testing"
-	"text/tabwriter"
+
+	"github.com/juju/ansiterm"
 )
 
 func Test_buildFormatString(t *testing.T) {
@@ -29,7 +30,7 @@ func Test_New(t *testing.T) {
 }
 
 func Test_NewCustom(t *testing.T) {
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+	w := ansiterm.NewTabWriter(os.Stdout, 0, 0, 2, ' ', 0)
 	tabby := NewCustom(w)
 	if reflect.TypeOf(tabby) != reflect.TypeOf(&Tabby{}) {
 		fmt.Println(reflect.TypeOf(tabby))
@@ -39,7 +40,7 @@ func Test_NewCustom(t *testing.T) {
 
 func Test_AddLine(t *testing.T) {
 	var b bytes.Buffer
-	w := tabwriter.NewWriter(&b, 0, 0, 1, '.', 0)
+	w := ansiterm.NewTabWriter(&b, 0, 0, 1, '.', 0)
 	tabby := NewCustom(w)
 	tabby.AddLine("test")
 	if b.String() != "test\n" {
@@ -49,7 +50,7 @@ func Test_AddLine(t *testing.T) {
 
 func Test_AddHeader(t *testing.T) {
 	var b bytes.Buffer
-	w := tabwriter.NewWriter(&b, 0, 0, 1, '.', 0)
+	w := ansiterm.NewTabWriter(&b, 0, 0, 1, '.', 0)
 	tabby := NewCustom(w)
 	tabby.AddHeader("test")
 	if b.String() != "test\n----\n" {

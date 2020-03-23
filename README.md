@@ -1,17 +1,19 @@
-[![cover.run](https://cover.run/go/github.com/cheynewallace/tabby.svg?style=flat&tag=golang-1.10)](https://cover.run/go?tag=golang-1.10&repo=github.com%2Fcheynewallace%2Ftabby)
+[![cover.run](https://cover.run/go/github.com/AstroProfundis/tabby.svg?style=flat&tag=golang-1.10)](https://cover.run/go?tag=golang-1.10&repo=github.com%2FAstroProfundis%2Ftabby)
 [![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 
 # Tabby
 A tiny library for super simple Golang tables
 
+This is a fork of [cheynewallace/tabby](https://github.com/cheynewallace/tabby) that uses [juju/ansiterm](https://github.com/juju/ansiterm) instead of `text/tabwriter` as tab writer, so that colored text is supported in the output.
+
 **Get Tabby**
 ```go
-go get github.com/cheynewallace/tabby
+go get github.com/AstroProfundis/tabby
 ```
 
 **Import Tabby**
 ```go
-import "github.com/cheynewallace/tabby"
+import "github.com/AstroProfundis/tabby"
 ```
 
 Tabby is a tiny (around 70 lines of code) efficient libary for writing extremely simple table based terminal output in Golang.
@@ -63,7 +65,7 @@ t := tabby.NewCustom(w)
 ```go
 package main
 
-import "github.com/cheynewallace/tabby"
+import "github.com/AstroProfundis/tabby"
 
 func main() {
 	t := tabby.New()
