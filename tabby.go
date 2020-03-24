@@ -25,7 +25,7 @@ func New() *Tabby {
 	}
 }
 
-// NewCustom returns a new *Tabby with with custom *ansiterm.TabWriter set
+// NewCustom returns a new *Tabby with custom *ansiterm.TabWriter set
 func NewCustom(writer *ansiterm.TabWriter) *Tabby {
 	return &Tabby{
 		writer: writer,
@@ -34,8 +34,7 @@ func NewCustom(writer *ansiterm.TabWriter) *Tabby {
 
 // AddLine will write a new table line
 func (t *Tabby) AddLine(args ...interface{}) {
-	formatString := t.buildFormatString(args)
-	fmt.Fprintf(t.writer, formatString, args...)
+	t.buildFormatString(args)
 }
 
 // AddHeader will write a new table line followed by a seperator
@@ -60,19 +59,20 @@ func (t *Tabby) addSeparator(args []interface{}) {
 			b.WriteString("\t")
 		}
 	}
-	fmt.Fprintln(t.writer, b.String())
+	b.WriteString("\n")
+	b.WriteTo(t.writer)
 }
 
 // buildFormatString will build up the formatting string used by the *ansiterm.TabWriter
-func (t *Tabby) buildFormatString(args []interface{}) string {
+func (t *Tabby) buildFormatString(args []interface{}) {
 	var b bytes.Buffer
-	for idx := range args {
-		b.WriteString("%v")
+	for idx, arg := range args {
+		b.WriteString(fmt.Sprintf("%v", arg))
 		if idx+1 != len(args) {
 			// Add a tab as long as its not the last column
 			b.WriteString("\t")
 		}
 	}
 	b.WriteString("\n")
-	return b.String()
+	b.WriteTo(t.writer)
 }
